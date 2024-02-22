@@ -3,7 +3,6 @@ package main
 import (
 	"cmp"
 	"crypto/md5"
-	"errors"
 	"fmt"
 	"io"
 	"io/fs"
@@ -46,10 +45,8 @@ func main() {
 		entry := earliest(entries)
 
 		err := copy(entry, source, target)
-		if errors.Is(err, fs.ErrExist) {
-			log.Printf("not copying %s file exists", entry.Name())
-		} else if err != nil {
-			log.Fatal(err)
+		if err != nil {
+			log.Printf("not copying %s: %s", entry.Name(), err)
 		}
 	}
 
