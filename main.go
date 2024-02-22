@@ -18,7 +18,7 @@ func main() {
 	}
 
 	source := os.Args[1]
-	target := "out"
+	target := os.Args[2]
 
 	entries, err := os.ReadDir(source)
 	if err != nil {
