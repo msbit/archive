@@ -8,7 +8,11 @@ import (
 	"os"
 )
 
-func copy(entry fs.DirEntry, source string, target string) error {
+func copy(
+	entry fs.DirEntry,
+	source string,
+	target string,
+) error {
 	t, err := fsTime(entry)
 	if err != nil {
 		return err
@@ -32,8 +36,7 @@ func copy(entry fs.DirEntry, source string, target string) error {
 
 	targetFile := fmt.Sprintf("%s/%s", target, entry.Name())
 
-	_, err = os.Stat(targetFile)
-	if err == nil {
+	if _, err = os.Stat(targetFile); err == nil {
 		return fs.ErrExist
 	}
 

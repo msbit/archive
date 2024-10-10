@@ -44,8 +44,7 @@ func main() {
 	for _, entries := range hashes {
 		entry := earliest(entries)
 
-		err := copy(entry, source, target)
-		if err != nil {
+		if err := copy(entry, source, target); err != nil {
 			log.Printf("not copying %s: %s", entry.Name(), err)
 		}
 	}
