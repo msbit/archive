@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"io/fs"
 	"slices"
 	"syscall"
@@ -11,7 +12,7 @@ import (
 func fsTime(entry fs.DirEntry) (time.Time, error) {
 	info, err := entry.Info()
 	if err != nil {
-		return time.Time{}, err
+		return time.Time{}, fmt.Errorf("unable to get info: %w", err)
 	}
 
 	stat, ok := info.Sys().(*syscall.Stat_t)
