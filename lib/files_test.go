@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"bytes"
 	"fmt"
 	"io/fs"
 	"os"
@@ -68,6 +69,24 @@ func TestCopyDir(t *testing.T) {
 
 	if slices.Contains(names, "05") {
 		t.Error("contains 05")
+	}
+
+	contents00, err := os.ReadFile(dir + "/target/" + time.Now().Format("2006-01") + "/00")
+	if err != nil {
+		t.Error(err)
+	}
+
+	if !bytes.Equal(contents00, []byte("foo")) {
+		t.Error("00 contents incorrect")
+	}
+
+	contents03, err := os.ReadFile(dir + "/target/" + time.Now().Format("2006-01") + "/03")
+	if err != nil {
+		t.Error(err)
+	}
+
+	if !bytes.Equal(contents03, []byte("bar")) {
+		t.Error("03 contents incorrect")
 	}
 }
 
