@@ -1,4 +1,4 @@
-package main
+package lib
 
 import (
 	"fmt"
@@ -32,7 +32,7 @@ func TestCopyDir(t *testing.T) {
 		t.Error(err)
 	}
 
-	if err := copyDir(
+	if err := CopyDir(
 		dir+"/source",
 		dir+"/target",
 	); err != nil {

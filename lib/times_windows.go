@@ -1,4 +1,4 @@
-package main
+package lib
 
 import (
 	"errors"
@@ -8,15 +8,14 @@ import (
 )
 
 func minTimeNs(info fs.FileInfo) (int64, error) {
-	stat, ok := info.Sys().(*syscall.Stat_t)
+	stat, ok := info.Sys().(*syscall.Win32FileAttributeData)
 	if !ok {
 		return 0, errors.New("invalid sys")
 	}
 
 	return slices.Min([]int64{
-		stat.Atimespec.Nano(),
-		stat.Mtimespec.Nano(),
-		stat.Ctimespec.Nano(),
-		stat.Birthtimespec.Nano(),
+		stat.LastAccessTime.Nanoseconds(),
+		stat.CreationTime.Nanoseconds(),
+		stat.LastWriteTime.Nanoseconds(),
 	}), nil
 }

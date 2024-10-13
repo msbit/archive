@@ -1,4 +1,4 @@
-package main
+package lib
 
 import (
 	"cmp"
@@ -12,7 +12,7 @@ import (
 	"slices"
 )
 
-func copyDir(
+func CopyDir(
 	source string,
 	target string,
 ) error {
