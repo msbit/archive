@@ -3,6 +3,7 @@ package lib
 import (
 	"fmt"
 	"io/fs"
+	"slices"
 	"time"
 )
 
@@ -21,10 +22,10 @@ func fsTime(entry fs.DirEntry) (time.Time, error) {
 		return time.Time{}, fmt.Errorf("unable to get info: %w", err)
 	}
 
-	ns, err := minTimeNs(info)
+	timestamps, err := timestamps(info)
 	if err != nil {
-		return time.Time{}, fmt.Errorf("unable to get minimum timestamp: %w", err)
+		return time.Time{}, fmt.Errorf("unable to get timestamps: %w", err)
 	}
 
-	return time.Unix(0, ns), nil
+	return time.Unix(0, slices.Min(timestamps)), nil
 }
